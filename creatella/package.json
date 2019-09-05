@@ -1,0 +1,36 @@
+{
+  "name": "creatella",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:3000/",
+  "dependencies": {
+    "http-proxy-middleware": "^0.20.0",
+    "hubot-cool-ascii-faces": "^1.2.0",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-scripts": "3.1.1"
+  },
+  "scripts": {
+    "start": "concurrently \"npm run api\" \"npm run server\"",
+    "server": "react-scripts start",
+    "api": "json-server server/index.js --routes server/routes.json --middlewares server/handle-delay.js server/handle-ads.js",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
