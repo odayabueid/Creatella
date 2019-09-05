@@ -4,6 +4,7 @@
   "private": true,
   "proxy": "http://localhost:3000/",
   "dependencies": {
+    "@material-ui/core": "^4.4.0",
     "http-proxy-middleware": "^0.20.0",
     "hubot-cool-ascii-faces": "^1.2.0",
     "react": "^16.9.0",
