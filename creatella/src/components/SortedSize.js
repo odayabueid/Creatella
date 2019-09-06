@@ -77,20 +77,20 @@ renderRedirect=()=>{
               <Fab color="secondary" aria-label="edit" style={{margin:"3px"}} onClick={this.handleInputChange}>
                   <span class="fa fa-arrow-left checked" style={{color:"white"}}></span>
               </Fab>      
-                
+                        <h1 style={{margin :"auto" ,color:"#FF0077", marginBottom:"20px",marginTop:"20px",marginRight:"29%",width:"30%"}}>Sorted By Size</h1>
                         <form class="form-inline" style={{display: 'flex',flexWrap: 'wrap',}}>
                             <TextField
                               id="outlined-search"
                               label="Search By ID"
                               type="search"
-                              style={{margin :"auto" , marginTop:"20px",marginRight:"theme.spacing(1)",width:"30%"}}
+                              style={{margin :"auto" ,marginBottom:"40px" , marginTop:"20px",marginRight:"theme.spacing(1)",width:"30%"}}
                               margin="normal"
                               variant="outlined"
                               onChange= {this.Search.bind(this)}
                             />
                         </form>
                   {filtered.map((product) =>
-                    <div>
+                    <div style={{marginLeft:"7%"}}>
                         
                       <div className="card" style={{height:"14rem" ,width: "15rem" ,float:"left",margin:"10px",borderRadius:"50%", backgroundColor:"#FFFF00",opacity:"0.9"}}>
                       <div className="card-img-top">

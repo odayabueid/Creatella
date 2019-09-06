@@ -96,14 +96,14 @@ class Home extends React.Component {
                               id="outlined-search"
                               label="Search By ID"
                               type="search"
-                              style={{margin :"auto" , marginTop:"20px",marginRight:"theme.spacing(1)",width:"30%"}}
+                              style={{margin :"auto" ,marginBottom:"40px" , marginTop:"20px",marginRight:"theme.spacing(1)",width:"30%"}}
                               margin="normal"
                               variant="outlined"
                               onChange= {this.Search.bind(this)}
                             />
                         </form>
                   {filtered.map((product) =>
-                    <div>
+                    <div style={{marginLeft:"7%"}}>
                       <div className="card"  style={{height:"14rem" ,width: "15rem" ,float:"left",margin:"10px",borderRadius:"50%", backgroundColor:"#FFFF00",opacity:"0.9"}}>
                       <div className="card-img-top">
                       <p><span style={{fontWeight:"bold"}}></span><span style={{color:"#008ff8"}}>$ {product.price/100}</span></p>
