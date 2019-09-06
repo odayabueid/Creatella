@@ -17,8 +17,6 @@ class Home extends React.Component {
   };
   }
 
-
-
   componentWillMount(){
     fetch(`${BASE_URL}/products`, {
       method: "GET",
@@ -42,6 +40,17 @@ class Home extends React.Component {
         this.setState(() => ({ fetchError: err }));
       });
   }
+
+
+
+  componentDidMount() {
+    
+    // var newdate = {currentTime: (new Date()).toLocaleString()}
+    const now = new Date().getTime();
+    this.setState({date:now },()=>{console.log(this.state.date)});
+      
+  }
+
 
   Search(event){
     this.setState({
@@ -73,6 +82,61 @@ class Home extends React.Component {
         }}/>
       }
   }
+
+  puralize = (name, time) => (time >= 2 ? `${name}s` : name);
+
+
+  timeConversion = (date) => {
+    const posted = new Date(date).getTime();
+    const millisec = new Date().getTime() - posted;
+    const seconds = (millisec / 1000).toFixed(1);
+    const minutes = (millisec / (1000 * 60)).toFixed(1);
+    const hours = (millisec / (1000 * 60 * 60)).toFixed(1);
+    const days = (millisec / (1000 * 60 * 60 * 24)).toFixed(1);
+
+    if (seconds < 60) {
+      return `${seconds} seconds`;
+    }
+
+    if (minutes < 60) {
+      return `${minutes} minutes`;
+    }
+
+    if (hours < 24) {
+      const minutes = Math.floor((hours % 1).toFixed(4) * 60);
+
+      if (minutes > 0) {
+        const floorHours = Math.floor(hours);
+        return `${floorHours} ${this.puralize(
+          "hour",
+          hours
+        )} ${minutes} minutes`;
+      } else {
+        return `${hours} ${this.puralize("hour", hours)}`;
+      }
+    }
+
+    const hourz = Math.floor((days % 1).toFixed(4) * 24);
+    if (hourz > 0) {
+      const floorDays = Math.floor(days);
+      return `${floorDays} ${this.puralize("day", days)} ${hourz} hours`;
+    } else {
+      return `${days} ${days >= 2 ? "days" : "day"}`;
+    }
+  };
+
+  getTimeDisplay = (date) => {
+    const secondsInWeek = 604800000; // in milleseconed
+    const now = new Date().getTime();
+    if (now - Date.parse(date) > secondsInWeek) {
+      const newDate = new Date(date).toLocaleDateString();
+      return newDate;
+    } else {
+      return `${this.timeConversion(date)} ago`;
+    }
+  };
+
+
   render() {
     let filtered =this.state.products.filter(
       (fil) =>{
@@ -80,7 +144,6 @@ class Home extends React.Component {
       })
     return (<div>
         {this. renderRedirect()}
-          
                   <select
                     value={this.state.tech}
                     onChange={this.handleInputChange}
@@ -104,14 +167,17 @@ class Home extends React.Component {
                         </form>
                   {filtered.map((product) =>
                     <div style={{marginLeft:"7%"}}>
-                      <div className="card"  style={{height:"14rem" ,width: "15rem" ,float:"left",margin:"10px",borderRadius:"50%", backgroundColor:"#FFFF00",opacity:"0.9"}}>
+                      <div className="card"  style={{height:"15rem" ,width: "18rem" ,float:"left",margin:"10px",borderRadius:"50%", backgroundColor:"#FFFF00",opacity:"0.9"}}>
                       <div className="card-img-top">
                       <p><span style={{fontWeight:"bold"}}></span><span style={{color:"#008ff8"}}>$ {product.price/100}</span></p>
-                      <h1 style={{textAlign:"center",fontSize:`${product.size}px`}}>{product.face}</h1>
+                      <p style={{textAlign:"center",fontSize:`${product.size}px`}}>{product.face}</p>
+
                       </div>
-                      <div className="card-body">
-                        {/* <p className="card-text"><span style={{fontWeight:"bold"}}>Country:</span>{product.date}</p> */}
-                        
+                      
+                      <div className="card-body" style={{textAlign:"center",marginTop:"75px"}}>
+                      {/* <p>{this.getTimeDisplay(product.date)}</p> */}
+                      <p className="card-text" style={{fontSize:"10px"}}>{this.getTimeDisplay(product.date)}</p>
+
                       </div>
                       </div>
                     </div>)}
