@@ -5,11 +5,15 @@
   "proxy": "http://localhost:3000/",
   "dependencies": {
     "@material-ui/core": "^4.4.0",
+    "@material-ui/icons": "^4.2.1",
     "http-proxy-middleware": "^0.20.0",
     "hubot-cool-ascii-faces": "^1.2.0",
+    "material-ui-icons": "^1.0.0-beta.36",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
-    "react-scripts": "3.1.1"
+    "react-router-dom": "^5.0.1",
+    "react-scripts": "3.1.1",
+    "signature_pad": "^3.0.0-beta.3"
   },
   "scripts": {
     "start": "concurrently \"npm run api\" \"npm run server\"",
