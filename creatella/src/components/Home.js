@@ -1,7 +1,9 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom'
+import CircularProgress from '@material-ui/core/CircularProgress';
 
 import TextField from '@material-ui/core/TextField';
+import Loading from './Loading';
 const BASE_URL = "http://localhost:3000";
 
 class Home extends React.Component {
@@ -12,13 +14,14 @@ class Home extends React.Component {
     products:[],
     date:"",
     search:"",
-    tech: '',
-    redirect:false
+    tech: "",
+    redirect:false,
+    loading:true
   };
   }
 
   componentWillMount(){
-    fetch(`${BASE_URL}/products`, {
+    fetch(`${BASE_URL}/products?_page=10&_limit=15`, {
       method: "GET",
       headers: {
         Accept: "application/json"
@@ -29,9 +32,9 @@ class Home extends React.Component {
           response.json().then((data) => {
             console.log(data)
             if (data.length > 0) {
-              this.setState(() => ({ products: data }));
+              this.setState(() => ({ products: data , loading:false}));
             } else {
-              this.setState({More: false });
+              this.setState({loading: false });
             }
           });
         }
@@ -59,33 +62,29 @@ class Home extends React.Component {
   }
 
   handleInputChange=(e)=>{
+    var {value} = e.target;
+
+      var sortedProducts = this.state.products.sort((a,b)=>{
+        if (a[value] < b[value]) {
+          return -1;
+        }
+        if (a[value] > b[value]) {
+          return 1;
+        }
+      
+        // names must be equal
+        return 0
+      })
+   
+
       this.setState({
           redirect:true,
-          tech:e.target.value
+          tech:e.target.value,
+          products:sortedProducts
       })
   }
 
-  renderRedirect=()=>{
-      if(this.state.redirect && this.state.tech==="price"){
-        return <Redirect to = {{
-            pathname:"SortedPrice/",
-            state:{productss:this.state.products,
-                
-                }
-        }}/>
-      }
-      if(this.state.redirect && this.state.tech ==="size"){
-        return <Redirect to = {{
-            pathname:"SortedSize/"
-                
-                
-        }}/>
-      }
-  }
-
   puralize = (name, time) => (time >= 2 ? `${name}s` : name);
-
-
   timeConversion = (date) => {
     const posted = new Date(date).getTime();
     const millisec = new Date().getTime() - posted;
@@ -138,23 +137,30 @@ class Home extends React.Component {
 
 
   render() {
+   
+    if(this.state.loading){
+      return <div>
+      <Loading />
+      </div>
+    }
     let filtered =this.state.products.filter(
       (fil) =>{
         return fil.id.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
       })
     return (<div>
-        {this. renderRedirect()}
+        {/* {this. renderRedirect()} */}
                   <select
                     value={this.state.tech}
                     onChange={this.handleInputChange}
-                    className="select__input"
+                    style={{backgroundColor:"red"}}
                     id="selectFilter"
+                    
                   >
-                    <option value="normal;">Normal</option>
+                    <option value="id">Normal</option>
                     <option value="price">Price</option>
                     <option value="size">Size</option>
                   </select>
-                        <form class="form-inline" style={{display: 'flex',flexWrap: 'wrap',}}>
+                        <form className="form-inline" style={{display: 'flex',flexWrap: 'wrap',}}>
                             <TextField
                               id="outlined-search"
                               label="Search By ID"
@@ -166,7 +172,7 @@ class Home extends React.Component {
                             />
                         </form>
                   {filtered.map((product) =>
-                    <div style={{marginLeft:"7%"}}>
+                    <div key={product.id} style={{marginLeft:"7%"}}>
                       <div className="card"  style={{height:"15rem" ,width: "18rem" ,float:"left",margin:"10px",borderRadius:"50%", backgroundColor:"#FFFF00",opacity:"0.9"}}>
                       <div className="card-img-top">
                       <p><span style={{fontWeight:"bold"}}></span><span style={{color:"#008ff8"}}>$ {product.price/100}</span></p>

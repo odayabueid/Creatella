@@ -2,8 +2,6 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter , Router } from "react-router-dom";
 import { Route } from 'react-router-dom';
-import SortedPrice from "./components/SortedPrice"
-import SortedSize from "./components/SortedSize"
 import Home from "./components/Home"
 
 
@@ -19,12 +17,12 @@ class App extends React.Component {
     return (<div>
         
         <BrowserRouter>
-          <div>
+          {/* <div>
             <Route exact path="/SortedPrice" component={SortedPrice} />
           </div>
           <div>
             <Route exact path="/SortedSize" component={SortedSize} />
-          </div>
+          </div> */}
           <div>
             <Route exact path ="/" component ={Home}/>
           </div>
