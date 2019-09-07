@@ -1,7 +1,4 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom'
-import CircularProgress from '@material-ui/core/CircularProgress';
-
 import TextField from '@material-ui/core/TextField';
 import Loading from './Loading';
 const BASE_URL = "http://localhost:3000";
@@ -16,12 +13,40 @@ class Home extends React.Component {
     search:"",
     tech: "",
     redirect:false,
-    loading:true
+    loading:true,
+    height: window.innerHeight,
+    message: 'not at bottom',
+    count:15
   };
+  this.handleScroll = this.handleScroll.bind(this);
+
   }
 
+  handleScroll() {
+    const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
+    const body = document.body;
+    const html = document.documentElement;
+    const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight);
+    const windowBottom = windowHeight + window.pageYOffset;
+    if (windowBottom >= docHeight) {
+      this.setState({
+        message: 'bottom reached',
+        count:this.state.count +15
+  
+    },()=>console.log(this.state.count,this.state.products.slice(0,this.state.count)));
+    }
+    if(this.state.count===525 ){
+      console.log(this.state.count,this.state.products.slice(0,this.state.count))
+      alert("~ end of catalogue ~")
+      this.setState({
+        count:this.state.count -15
+      })
+    }
+ 
+}
+
   componentWillMount(){
-    fetch(`${BASE_URL}/products?_page=10&_limit=15`, {
+    fetch(`${BASE_URL}/products`, {
       method: "GET",
       headers: {
         Accept: "application/json"
@@ -42,12 +67,16 @@ class Home extends React.Component {
       .catch((err) => {
         this.setState(() => ({ fetchError: err }));
       });
+
+      window.removeEventListener("scroll", this.handleScroll);
+
   }
 
 
 
   componentDidMount() {
-    
+    window.addEventListener("scroll", this.handleScroll);
+
     // var newdate = {currentTime: (new Date()).toLocaleString()}
     const now = new Date().getTime();
     this.setState({date:now },()=>{console.log(this.state.date)});
@@ -171,17 +200,16 @@ class Home extends React.Component {
                               onChange= {this.Search.bind(this)}
                             />
                         </form>
-                  {filtered.map((product) =>
-                    <div key={product.id} style={{marginLeft:"7%"}}>
-                      <div className="card"  style={{height:"15rem" ,width: "18rem" ,float:"left",margin:"10px",borderRadius:"50%", backgroundColor:"#FFFF00",opacity:"0.9"}}>
+                  {filtered.slice(0,this.state.count).map((product) =>
+                    <div key={product.id} style={{marginLeft:"12%"}}>
+                      <div className="card"  style={{height:"19rem" ,width: "23rem" ,float:"left",margin:"10px",borderRadius:"50%", backgroundColor:"#FFFF00",opacity:"0.9"}}>
                       <div className="card-img-top">
                       <p><span style={{fontWeight:"bold"}}></span><span style={{color:"#008ff8"}}>$ {product.price/100}</span></p>
                       <p style={{textAlign:"center",fontSize:`${product.size}px`}}>{product.face}</p>
 
                       </div>
                       
-                      <div className="card-body" style={{textAlign:"center",marginTop:"75px"}}>
-                      {/* <p>{this.getTimeDisplay(product.date)}</p> */}
+                      <div className="card-body" style={{textAlign:"center",marginTop:"140px"}}>
                       <p className="card-text" style={{fontSize:"10px"}}>{this.getTimeDisplay(product.date)}</p>
 
                       </div>
