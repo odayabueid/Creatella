@@ -1,8 +1,11 @@
+
+//import what you want from material-UI also save the localhost in BASE_URL to use it in fetch to fetch the data from Api
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Loading from './Loading';
 const BASE_URL = "http://localhost:3000";
 
+//Home Class render when start the server(npm start)
   class Home extends React.Component {
     constructor(props) {
       super(props);
@@ -11,7 +14,6 @@ const BASE_URL = "http://localhost:3000";
         date:"",
         search:"",
         tech: "",
-        redirect:false,
         loading:true,
         height: window.innerHeight,
         message: 'not at bottom',
@@ -20,6 +22,9 @@ const BASE_URL = "http://localhost:3000";
       this.handleScroll = this.handleScroll.bind(this);
     }
 
+//handleScroll func to handle Scroll if the client reach to the end of Scroll compare the widowBottom wit docHeigth => if true add 15 to count 
+//and bottom reached to the message, also if count ===525 alert ~ end of catalogue ~ message and decrease 15 from count to can scroll to the top again
+//without alert
     handleScroll() {
       const windowHeight = "innerHeight" in window ? window.innerHeight : document.documentElement.offsetHeight;
       const body = document.body;
@@ -40,6 +45,7 @@ const BASE_URL = "http://localhost:3000";
       }
     }
 
+//componentWillMount to feth all products from Api and save it in products state and put the loading state false to stop reload 
     componentWillMount(){
       fetch(`${BASE_URL}/products`, {
         method: "GET",
@@ -64,18 +70,21 @@ const BASE_URL = "http://localhost:3000";
       window.removeEventListener("scroll", this.handleScroll);
     }
 
+//componentDidMount func to addEventListener to scroll and invoke handleScroll func also save the current date in date state  
     componentDidMount() {
       window.addEventListener("scroll", this.handleScroll);
       const now = new Date().getTime();
       this.setState({date:now });
     }
 
+//Search func to save what input in search field i search state
     Search(event){
       this.setState({
         search : event.target.value
       })
     }
 
+// handleInputChange func to sort the Products with Size, Price and ID
     handleInputChange=(e)=>{
       var {value} = e.target;
       var sortedProducts = this.state.products.sort((a,b)=>{
@@ -88,14 +97,13 @@ const BASE_URL = "http://localhost:3000";
           return 0
       })
       this.setState({
-        redirect:true,
         tech:e.target.value,
         products:sortedProducts
       })
     }
 
     puralize = (name, time) => (time >= 2 ? `${name}s` : name);
-
+//timeConversion func to convert the time to sec, min, hour and day and compare it with the date in Api
     timeConversion = (date) => {
       const posted = new Date(date).getTime();
       const millisec = new Date().getTime() - posted;
@@ -129,6 +137,8 @@ const BASE_URL = "http://localhost:3000";
       }
     };
 
+//getTimeDisplay func to compare the date from Api with seconds in week if > return the date form DD/MM/Year if < return the date form in
+//days,hours or minutes 
     getTimeDisplay = (date) => {
       const secondsInWeek = 604800000; // in milleseconed
       const now = new Date().getTime();
@@ -140,6 +150,7 @@ const BASE_URL = "http://localhost:3000";
       }
     };
 
+//render => if loading true invoke <loading /> component , filtered to filter the products by id 
     render() {
       if(this.state.loading){
         return <div><Loading /></div>
@@ -148,6 +159,9 @@ const BASE_URL = "http://localhost:3000";
         (fil) =>{
           return fil.id.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
         })
+
+// return => Select to sort the products by ID, Price or Size, TextField basicly search bar, map to iterate over the array from
+// 0 to the count state to show new 15 products when you reach to the end of Scroll also to display the price , Face and the Date
       return (<div>
                 <select
                   value={this.state.tech}
