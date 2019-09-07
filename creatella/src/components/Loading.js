@@ -11,13 +11,10 @@ const useStyles = makeStyles(theme => ({
 export default function Loading() {
   const classes = useStyles();
   const [progress, setProgress] = React.useState(0);
-
   React.useEffect(() => {
     function tick() {
-      // reset when reaching 100%
       setProgress(oldProgress => (oldProgress >= 100 ? 0 : oldProgress + 1));
     }
-
     const timer = setInterval(tick, 20);
     return () => {
       clearInterval(timer);
@@ -30,8 +27,7 @@ export default function Loading() {
         className={classes.progress}
         variant="determinate"
         value={progress}
-        color="secondary"
-      />
+        color="secondary"/>
     </div>
   );
 }
