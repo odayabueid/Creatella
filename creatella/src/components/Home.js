@@ -3,6 +3,9 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Loading from './Loading';
+import MyLoader from "./Spinner";
+import OverlayLoader from 'react-overlay-loading/lib/OverlayLoader'
+import Spinner from"./Spinner"
 const BASE_URL = "http://localhost:3000";
 
 //Home Class render when start the server(npm start)
@@ -17,7 +20,8 @@ const BASE_URL = "http://localhost:3000";
         loading:true,
         height: window.innerHeight,
         message: 'not at bottom',
-        count:15
+        count:15,
+        newload:false
       };
       this.handleScroll = this.handleScroll.bind(this);
     }
@@ -34,13 +38,22 @@ const BASE_URL = "http://localhost:3000";
       if (windowBottom >= docHeight) {
         this.setState({
           message: 'bottom reached',
-          count:this.state.count +15
+          count:this.state.count +15,
+          newload:true
         });
+      }else{
+        setTimeout(() => {
+          this.setState({
+            newload:false
+          })
+        }, 2000);
+       
       }
       if(this.state.count === 525 ){
         alert("~ end of catalogue ~")
         this.setState({
-          count:this.state.count -15
+          count:this.state.count -15,
+          newload:false
         })
       }
     }
@@ -149,6 +162,7 @@ const BASE_URL = "http://localhost:3000";
           return `${this.timeConversion(date)} ago`;
       }
     };
+  
 
 //render => if loading true invoke <loading /> component , filtered to filter the products by id 
     render() {
@@ -159,6 +173,13 @@ const BASE_URL = "http://localhost:3000";
         (fil) =>{
           return fil.id.toLowerCase().indexOf(this.state.search.toLowerCase()) !== -1;
         })
+        if(this.state.newload){
+
+          return <div>
+            <Spinner />            
+            </div>
+           
+      };
 
 // return => Select to sort the products by ID, Price or Size, TextField basicly search bar, map to iterate over the array from
 // 0 to the count state to show new 15 products when you reach to the end of Scroll also to display the price , Face and the Date
