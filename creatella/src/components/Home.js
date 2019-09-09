@@ -3,9 +3,8 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Loading from './Loading';
-import MyLoader from "./Spinner";
-import OverlayLoader from 'react-overlay-loading/lib/OverlayLoader'
 import Spinner from"./Spinner"
+
 const BASE_URL = "http://localhost:3000";
 
 //Home Class render when start the server(npm start)
@@ -116,7 +115,8 @@ const BASE_URL = "http://localhost:3000";
     }
 
     puralize = (name, time) => (time >= 2 ? `${name}s` : name);
-//timeConversion func to convert the time to sec, min, hour and day and compare it with the date in Api
+//timeConversion func to convert the time to sec, min, hour and day and compare it with the date in Api, i found this function on the internet 
+//  i use it as it is from internet.
     timeConversion = (date) => {
       const posted = new Date(date).getTime();
       const millisec = new Date().getTime() - posted;
@@ -187,7 +187,7 @@ const BASE_URL = "http://localhost:3000";
                 <select
                   value={this.state.tech}
                   onChange={this.handleInputChange}
-                  style={{backgroundColor:"red"}}
+                  style={{backgroundColor:"white",borderRadius:"20px",color:"#008ff8",marginLeft:"60px",width:"100px"}}
                   id="selectFilter">
                     <option value="id">Normal</option>
                     <option value="price">Price</option>

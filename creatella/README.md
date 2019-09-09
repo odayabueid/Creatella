@@ -1,68 +1,48 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
-
-In the project directory, you can run:
+### `start th project`
+you can go to github link (https://github.com/odayabueid/Creatella) and clone the project, after clone it you can drag and drop the folder in your 
+editor likr Visual Studio Code and wtite:
+1- cd creatella
+2- npm start 
+the page will open automatically after couple of seconds 
 
 ### `npm start`
-
 Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:3001](http://localhost:3001) to view it in the browser.
 
 The page will reload if you make edits.<br>
 You will also see any lint errors in the console.
 
-### `npm test`
+### `features added `
+i add some feture to this project to make it easier to the client (please find the explenation below):
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1- Search Bar => you can search for specific product bu using ID for this Product
+2- Sorted by Id => you can sort the products by Size, Price also bu ID
+3- Scroll Up Button => button appear when you scrolled down in the page and when you click on it , you go back to the top of page
 
-### `npm run build`
+### `features i didn't do it`
+after every 20 products we need to insert an advertisement from one of our sponsors .
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+i can think to do this feature to add a state  with array lingth and make the length based on 20  and make a condition to check this state and if  
+ this.state mod 20 === 0 and make another condition to check the state if === 20  as an example return a new componant contain Modal and inside this Modal add an image for Creatella Sponsers , if === 40 as an example return a new componant contain Modal and inside this Modal add an image for new Creatella Sponsers , if === 60 as an example return a new componant contain Modal and inside this Modal add an image for new Creatella Sponsers and so on to reach 500 which is the length of products array
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+ ## `use ready function from internet after i understand it`
+i used some function which is ready on internet like : 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1- Loading function in material ui (Loading component)to loading spinner when you start the server 
+2- Loading function in material ui (Spinner component)to loading spinner when you reach to the end of scrolling  
+3- timeConversion and puralize to convert the time to sec, min, hour and day and compare it with the date in Api to return the 
+time format as DD/MM/Year or as days with hours and minutes. 
 
-### `npm run eject`
+### `Demo video`
+i will send a demo video for this project via email so you can watch it if you want
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## `Thanks`
+i want to thank you sir and thank all Creatella employee  to send this task for me, i want to know i am very interested to work with you and become a part of creatella group for a long time as soon as possible, if i have any weeknesses  point i am hungry to learn so i can work on this weeknesses to add a positive value to the Creatella, Work place and me.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
